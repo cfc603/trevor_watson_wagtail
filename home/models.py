@@ -2,10 +2,13 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+)
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.models import register_snippet
@@ -66,6 +69,30 @@ class ContentPage(Page):
 
     content_panels = Page.content_panels + [
         StreamFieldPanel("body"),
+    ]
+
+
+class FormField(AbstractFormField):
+    page = ParentalKey('FormPage', related_name='form_fields')
+
+
+class FormPage(AbstractEmailForm):
+    subtitle = models.CharField(max_length=255, blank=True)
+    intro = RichTextField(blank=True)
+    confirmation_text = RichTextField(blank=True)
+
+    content_panels = AbstractEmailForm.content_panels + [
+        FieldPanel('subtitle', classname="full"),
+        FieldPanel('intro', classname="full"),
+        InlinePanel('form_fields', label="Form fields"),
+        FieldPanel('confirmation_text', classname="full"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], "Email"),
     ]
 
 
