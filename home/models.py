@@ -2,12 +2,62 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
+
+
+# Struct & Static Blocks
+class HorizontalRuleStaticBlock(blocks.StaticBlock):
+
+    class Meta:
+        admin_text = "Display a horizontal rule."
+        icon = "horizontalrule"
+        template = "home/blocks/horizontal_rule_static_block.html"
+
+
+class PageHeaderBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    subtitle = blocks.CharBlock()
+
+    class Meta:
+        group = "header"
+        icon = "title"
+        template = "home/blocks/page_header_block.html"
+
+
+class PageHeaderImageBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    subtitle = blocks.CharBlock()
+    image = ImageChooserBlock()
+
+    class Meta:
+        group = "header"
+        icon = "title"
+        template = "home/blocks/page_header_image_block.html"
+
+
+class SocialStaticBlock(blocks.StaticBlock):
+
+    class Meta:
+        admin_text = "Displays list of all Social Link snippets."
+        icon = "group"
+        template = "home/blocks/social_static_block.html"
+
+
+# StreamBlocks
+class ContentStreamBlock(blocks.StreamBlock):
+    page_header = PageHeaderBlock()
+    page_header_with_image = PageHeaderImageBlock()
+    horizontal_rule = HorizontalRuleStaticBlock()
+    social_static_block = SocialStaticBlock()
+    paragraph_block = blocks.RichTextBlock()
 
 
 # Pages

@@ -1,0 +1,7 @@
+{% load wagtailimages_tags %}
+
+<div class="page-header page-header-resume">
+    {% image value.image fill-125x125 %}
+    <h1>{{ value.title }}</h1>
+    <p class="lead">{{ value.subtitle }}</p>
+</div>
