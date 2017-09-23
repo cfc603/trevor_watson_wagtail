@@ -61,6 +61,14 @@ class ContentStreamBlock(blocks.StreamBlock):
 
 
 # Pages
+class ContentPage(Page):
+    body = StreamField(ContentStreamBlock())
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel("body"),
+    ]
+
+
 class HomePage(Page):
     subtitle = models.CharField(max_length=255, blank=True)
 
