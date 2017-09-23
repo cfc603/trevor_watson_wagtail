@@ -1,0 +1,10 @@
+{% for social_link in social_links %}
+    <li>
+        {% if icons %}
+            <i class="fa-li fa {{ social_link.get_social_icon }}"></i> 
+            <a href="{{ social_link.link }}" target="_blank">{{ social_link.link }}</a>
+        {% else %}
+            <a href="{{ social_link.link }}" target="_blank">{{ social_link.get_site_display }}</a>
+        {% endif %}
+    </li>
+{% endfor %}
