@@ -1,0 +1,34 @@
+{% load home_tags wagtailcore_tags %}
+{% get_site_root as site_root %}
+
+<div class="navbar" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#rebound-navbar-collapse"><span class="fa fa-bars"></span> Menu</button>
+        <a href="{% pageurl site_root %}" class="navbar-brand">{{ site_root.title }}</a>
+        {% if site_root.subtitle %}
+            <p class="brand-text">{{ site_root.subtitle }}</p>
+        {% endif %}
+    </div><!-- end navbar-header -->
+    <div class="collapse navbar-collapse" id="rebound-navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li class="title">Menu</li>
+            {% for menuitem in menuitems %}
+                <li {% if menuitem.active %}class="active"{% endif %}>
+                    <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <form class="navbar-form" role="search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" value="" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+                </span>
+            </div><!-- end input group -->
+        </form><!-- end navbar-form -->
+        <ul class="nav navbar-nav nav-social hidden-sm hidden-xs">
+            <li class="title">Social</li>
+            {% social_links %}
+        </ul>
+    </div><!-- end navbar-collapse -->
+</div><!-- end navbar -->
