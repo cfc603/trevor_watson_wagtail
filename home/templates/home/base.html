@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load home_tags %}
+{% get_site_root as site_root %}
+
+{% block navigation %}
+    {% navigation parent=site_root calling_page=self %}
+{% endblock %}
