@@ -15,7 +15,15 @@
             <div class="col-md-6">
                 <ul class="list-unstyled post-meta">
                     <li><span class="fa fa-calendar"></span>{{ page.date|date:"N j, Y"}}</li>
-                    <li><span class="fa fa-list-ul"></span>Posted in: <a href="#none">Film</a>, <a href="#none">Social</a></li>
+                    {% if page.tags.all.count %}
+                        <li>
+                            <span class="fa fa-list-ul"></span>
+                            Posted in: 
+                            {% for tag in page.tags.all %}
+                                <a href="/?tag={{ tag }}">{{ tag }}</a>
+                            {% endfor %}
+                        </li>
+                    {% endif %}
                 </ul><!-- end post-meta -->
             </div><!-- end col -->
             <div class="col-md-6">
