@@ -141,6 +141,7 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
+WAGTAILIMAGES_JPEG_QUALITY = 60
 WAGTAIL_SITE_NAME = "trevor_watson"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
