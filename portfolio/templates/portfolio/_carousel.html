@@ -1,0 +1,42 @@
+{% load wagtailimages_tags %}
+
+<div id="portfolio-carousel" class="carousel slide" data-ride="carousel">
+
+    {% if carousel_images|length > 1 %}
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for carousel_item in carousel_images %}
+                <li data-target="#portfolio-carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        {% for carousel_item in carousel_images %}
+            <div class="item{% if forloop.first %} active{% endif %}">
+                {% image carousel_item.image width-1000 %}
+                {% if carousel_item.title or carousel_item.subtitle %}
+                    <div class="carousel-caption">
+                        {% if carousel_item.title %}
+                            <h3>{{ carousel_item.title }}</h3>
+                        {% endif %}
+                        {% if carousel_item.subtitle %}
+                            <p>{{ carousel_item.subtitle }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div><!-- end item -->
+        {% endfor %}
+    </div>
+
+    {% if carousel_images|length > 1 %}
+        <!-- Controls -->
+        <a class="left carousel-control" href="#portfolio-carousel" data-slide="prev">
+            <span class="fa fa-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#portfolio-carousel" data-slide="next">
+            <span class="fa fa-chevron-right"></span>
+        </a>
+    {% endif %}
+</div><!-- end carousel -->

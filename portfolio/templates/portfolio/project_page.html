@@ -1,0 +1,43 @@
+{% extends "portfolio/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="page">
+    <article>
+        <div class="page-header">
+            {% include "portfolio/_carousel.html" with carousel_images=page.carousel_images.all %}
+            <h1>{{ page.title }}</h1>
+            {% if page.subtitle %}
+                <p class="lead">{{ page.subtitle }}</p>
+            {% endif %}
+        </div><!-- end page-header -->
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-unstyled post-meta">
+                    <li><span class="fa fa-calendar"></span>{{ page.date|date:"N j, Y"}}</li>
+                    <li><span class="fa fa-list-ul"></span>Posted in: <a href="#none">Film</a>, <a href="#none">Social</a></li>
+                </ul><!-- end post-meta -->
+            </div><!-- end col -->
+            <div class="col-md-6">
+                <ul class="list-unstyled post-meta">
+                    {% if page.links %}
+                        {% for link in page.links.all %}
+                            <li><a href="{{ link.url }}" target="_blank" class="btn btn-default">{{ link.display_text }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                </ul><!-- end post-meta -->
+            </div><!-- end col -->
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="post-content">
+                    {% for block in page.body %}
+                        {% include_block block %}
+                    {% endfor %}
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end post-content -->
+    </article>
+</div><!-- end post -->
+{% endblock %}
