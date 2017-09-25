@@ -14,6 +14,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
+from portfolio.models import ProjectPage
 
 
 # Struct & Static Blocks
@@ -102,6 +103,17 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("subtitle"),
     ]
+
+    def get_context(self, request):
+        tag = request.GET.get("tag")
+        if tag:
+            project_pages = ProjectPage.objects.filter(tags__name=tag)
+        else:
+            project_pages = ProjectPage.objects.all()
+
+        context = super(HomePage, self).get_context(request)
+        context["project_pages"] = project_pages
+        return context
 
 
 # Snippets
