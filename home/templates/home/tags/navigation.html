@@ -1,4 +1,4 @@
-{% load home_tags wagtailcore_tags %}
+{% load home_tags portfolio_tags wagtailcore_tags %}
 {% get_site_root as site_root %}
 
 <div class="navbar" role="navigation">
@@ -26,6 +26,7 @@
                 </span>
             </div><!-- end input group -->
         </form><!-- end navbar-form -->
+        {% tag_nav %}
         <ul class="nav navbar-nav nav-social hidden-sm hidden-xs">
             <li class="title">Social</li>
             {% social_links %}
