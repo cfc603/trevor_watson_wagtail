@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+<ul class="nav navbar-nav filter-portfolio">
+    <li class="title">Projects</li>
+    {% for tag in tags %}
+        <li {% if current_tag == tag.slug %}class="active"{% endif %}>
+            <a href="/?tag={{ tag.slug }}">{{ tag }}</a> <span>({{ tag.project_count }})</span>
+        </li>
+    {% endfor %}
+</ul>
