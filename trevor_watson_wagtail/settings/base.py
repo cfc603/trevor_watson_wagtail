@@ -103,7 +103,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'trevor_watson.wsgi.application'
+WSGI_APPLICATION = 'trevor_watson_wagtail.wsgi.application'
 
 
 # Database
