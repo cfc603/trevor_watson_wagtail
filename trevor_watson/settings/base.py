@@ -12,15 +12,28 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 from __future__ import absolute_import, unicode_literals
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import json
+from unipath import Path
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+from django.core.exceptions import ImproperlyConfigured
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+# Build paths inside the project like this: Path(BASE_DIR, ...)
+PROJECT_DIR = Path(__file__).ancestor(2)
+BASE_DIR = PROJECT_DIR.parent
+
+
+# get secrets from json file
+with open(Path(BASE_DIR.parent + '/secrets/secrets.json')) as f:
+    secrets = json.loads(f.read())
+
+def get_secrets(setting, secrets=secrets):
+    """Get setting variable or return exception"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = 'Set the {0} enviroment variable'.format(setting)
+        raise ImproperlyConfigured
 
 
 # Application definition
@@ -70,11 +83,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'trevor_watson.urls'
 
+SECRET_KEY = get_secrets('SECRET_KEY')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
+            Path(PROJECT_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -129,13 +144,13 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
+    Path(PROJECT_DIR, 'static'),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = Path(BASE_DIR.parent, 'static')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = Path(BASE_DIR.parent, 'media')
 MEDIA_URL = '/media/'
 
 
