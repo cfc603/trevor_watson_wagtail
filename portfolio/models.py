@@ -65,7 +65,10 @@ class ProjectPage(Page):
     ]
 
     def get_main_image(self):
-        return self.carousel_images.first().image
+        try:
+            return self.carousel_images.first().image
+        except AttributeError:
+            return None
 
 
 class ProjectTag(TaggedItemBase):
