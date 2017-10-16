@@ -1241,6 +1241,11 @@ dl:after {
   -moz-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
+@media screen and (min-width: 768px){
+  .card .thumb img {
+    max-height: 140px;
+  }
+}
 .card .thumb .overlay {
   display: none;
   width: 100%;
