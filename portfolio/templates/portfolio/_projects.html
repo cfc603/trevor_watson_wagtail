@@ -1,14 +1,16 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 <div class="portfolio-wrapper">
     {% for project in projects %}
         <div class="card">
-            {% if project.get_main_image %}
                 <a href="{% pageurl project %}" class="thumb">
-                    {% image project.get_main_image fill-250x140 %}
+                    {% if project.get_main_image %}
+                        {% image project.get_main_image original %}
+                    {% else %}
+                        <img src="{% static 'img/no_image.png' %}">
+                    {% endif %}
                     <span class="overlay"><span class="fa fa-search"></span></span>
                 </a>
-            {% endif %}
             <div class="card-body">
                 <h2><a href="{% pageurl project %}">{{ project.title }}</a></h2>
                 <p>{{ project.subtitle|truncatewords:24 }}</p>
