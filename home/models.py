@@ -106,12 +106,11 @@ class HomePage(Page):
 
     def get_context(self, request):
         tag = request.GET.get("tag")
+        project_pages = ProjectPage.objects.filter(live=True)
+        project_pages = project_pages.order_by("-date")
+
         if tag:
-            project_pages = ProjectPage.objects.filter(live=True).filter(
-                tags__slug=tag
-            )
-        else:
-            project_pages = ProjectPage.objects.filter(live=True)
+            project_pages = project_pages.filter(tags__slug=tag)
 
         context = super(HomePage, self).get_context(request)
         context["project_pages"] = project_pages
