@@ -19,7 +19,7 @@
             <div class="card-footer">
                 <ul class="list-inline filters">
                     {% for tag in project.tags.all|slice:":3" %}
-                        <li><a href="/?tag={{ tag }}">{{ tag }}</a></li>
+                        <li><a href="/?tag={{ tag.slug }}">{{ tag }}</a></li>
                     {% endfor %}
                 </ul>
             </div><!-- end card-footer -->

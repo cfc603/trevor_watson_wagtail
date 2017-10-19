@@ -107,7 +107,9 @@ class HomePage(Page):
     def get_context(self, request):
         tag = request.GET.get("tag")
         if tag:
-            project_pages = ProjectPage.objects.filter(live=True).filter(tags__name=tag)
+            project_pages = ProjectPage.objects.filter(live=True).filter(
+                tags__slug=tag
+            )
         else:
             project_pages = ProjectPage.objects.filter(live=True)
 
