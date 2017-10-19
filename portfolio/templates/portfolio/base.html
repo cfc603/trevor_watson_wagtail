@@ -1,10 +1,6 @@
 {% extends "base.html" %}
-{% load static home_tags %}
-{% get_site_root as site_root %}
+{% load static %}
 
 {% block extra_css %}
-    <link href="{% static 'portfolio/css/codehilite.css' %}" rel="stylesheet"> {% endblock %}
-
-{% block navigation %}
-    {% navigation parent=site_root calling_page=self %}
+    <link href="{% static 'portfolio/css/codehilite.css' %}" rel="stylesheet">
 {% endblock %}

@@ -1,4 +1,5 @@
-{% load static wagtailuserbar %}
+{% load home_tags static wagtailuserbar %}
+{% get_site_root as site_root %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -45,8 +46,7 @@
         <div class="wrapper">
             <div class="row">
                 <div class="col-md-3 sidebar">
-                    {% block navigation %}
-                    {% endblock %}
+                    {% navigation parent=site_root calling_page=self %}
                 </div>
                 <div class="col-md-9 content">
                     {% block content %}{% endblock %}
